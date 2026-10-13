@@ -49,6 +49,8 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots{position:relative;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);cursor:pointer;transition:border-color .2s,background .2s;text-decoration:none}
 .spots:hover,.spots:focus-visible{border-color:#d3d3ce;background:#fff;outline:none}
 .spots .spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.spots .dot{background:#d94d4d;box-shadow:0 0 0 4px rgba(217,77,77,.12);animation:blink-red 1.5s ease-in-out infinite}
+.spots .slots-claim{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--ink)}
 .spots .spots-reveal{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-8px);width:min(260px,72vw);padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.12);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s,visibility .2s}
 .spots:hover .spots-reveal,.spots:focus-visible .spots-reveal,.spots:active .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .spots .spots-reveal strong{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
