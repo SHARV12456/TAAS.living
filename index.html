@@ -23,6 +23,9 @@
 <link rel="alternate" type="text/plain" href="/llms.txt">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Preload first room images so before/after slider is ready instantly -->
+<link rel="preload" href="assets/rooms/living-room/before.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/rooms/living-room/after.webp" as="image" type="image/webp">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"HomeAndConstructionBusiness","@id":"https://taasinteriorstyling.in/#org","name":"TAAS®","url":"https://taasinteriorstyling.in/","logo":"https://taasinteriorstyling.in/assets/TAAS_mark_dark.png","telephone":"+917400162509","sameAs":["https://instagram.com/taas.living"],"areaServed":{"@type":"City","name":"Mumbai"},"address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"MH","addressCountry":"IN"},"description":"Design decision support before the build, spend or commitment. Fixed-budget space transformations in 10 days."},
@@ -618,11 +621,14 @@ body.intro .hero h1 i{animation-play-state:paused}
   const $$ = (selector) => [...document.querySelectorAll(selector)];
 
   const rooms = [
-    { key: 'living-room', label: 'Living room', before: 'assets/rooms/living-room/after.jpg', after: 'assets/rooms/living-room/before.jpg' },
-    { key: 'bedroom', label: 'Bedroom', before: 'assets/rooms/bedroom/before.jpg', after: 'assets/rooms/bedroom/after.jpg' },
-    { key: 'living-room1', label: 'Living room 1', before: 'assets/rooms/living-room1/after.png', after: 'assets/rooms/living-room1/before.png' },
-    { key: 'kids-bedroom', label: 'Kids bedroom', before: 'assets/rooms/kids-bedroom/before.jpg', after: 'assets/rooms/kids-bedroom/after.jpg' }
+    { key: 'living-room',  label: 'Living room',   before: 'assets/rooms/living-room/after.webp',    after: 'assets/rooms/living-room/before.webp' },
+    { key: 'bedroom',      label: 'Bedroom',        before: 'assets/rooms/bedroom/before.webp',       after: 'assets/rooms/bedroom/after.webp' },
+    { key: 'living-room1', label: 'Living room 1',  before: 'assets/rooms/living-room1/after.webp',   after: 'assets/rooms/living-room1/before.webp' },
+    { key: 'kids-bedroom', label: 'Kids bedroom',   before: 'assets/rooms/kids-bedroom/before.webp',  after: 'assets/rooms/kids-bedroom/after.webp' }
   ];
+
+  // Preload an image silently
+  const preload = (src) => { const i = new Image(); i.src = src; };
 
   const roomByKey = Object.fromEntries(rooms.map((room) => [room.key, room]));
   const livingRoom = roomByKey['living-room'];
@@ -659,9 +665,14 @@ body.intro .hero h1 i{animation-play-state:paused}
       console.warn(`Skipping invalid room config for ${room.key}.`);
       return;
     }
-    const cacheBust = `?v=${Date.now()}`;
-    ba.style.backgroundImage = `url('${room.after}${cacheBust}')`;
-    bef.style.backgroundImage = `url('${room.before}${cacheBust}')`;
+    // Crossfade: briefly drop opacity, swap, restore
+    ba.style.transition = 'opacity .22s cubic-bezier(.2,.8,.2,1)';
+    ba.style.opacity = '0';
+    setTimeout(() => {
+      ba.style.backgroundImage = `url('${room.after}')`;
+      bef.style.backgroundImage = `url('${room.before}')`;
+      ba.style.opacity = '1';
+    }, 180);
     $$('#tabs button').forEach((button) => {
       const selected = Number(button.dataset.i) === index;
       button.setAttribute('aria-selected', String(selected));
@@ -669,14 +680,28 @@ body.intro .hero h1 i{animation-play-state:paused}
       button.style.fontWeight = selected ? '500' : '400';
     });
     ba.style.setProperty('--p', '50%');
+    // Preload adjacent rooms
+    const next = rooms[index + 1]; const prev = rooms[index - 1];
+    if (next && validRoomPair(next)) { preload(next.after); preload(next.before); }
+    if (prev && validRoomPair(prev)) { preload(prev.after); preload(prev.before); }
   }
 
   $$('#tabs button').forEach((button) => {
     button.addEventListener('click', () => scene(Number(button.dataset.i)));
+    // Preload on hover so the image is ready before click
+    button.addEventListener('mouseenter', () => {
+      const r = rooms[Number(button.dataset.i)];
+      if (r && validRoomPair(r)) { preload(r.after); preload(r.before); }
+    });
   });
 
-  // default to living-room before/after images
-  scene(0);
+  // default to living-room — load immediately, no cache-bust
+  ba.style.backgroundImage = `url('${rooms[0].after}')`;
+  bef.style.backgroundImage = `url('${rooms[0].before}')`;
+  ba.style.setProperty('--p', '50%');
+  $$('#tabs button')[0]?.setAttribute('aria-selected', 'true');
+  // Preload room 1 immediately in background
+  preload(rooms[1].after); preload(rooms[1].before);
 
   const set = (value) => ba.style.setProperty('--p', Math.max(0, Math.min(100, value)) + '%');
   let drag = 0;

@@ -6,5 +6,8 @@
     "build": "node scripts/verify-contact.mjs && node -e \"console.log('Static site build complete')\"",
     "verify:contact": "node scripts/verify-contact.mjs",
     "lint": "node -e \"const fs=require('fs'); const files=['index.html','robots.txt','sitemap.xml','llms.txt']; for (const f of files) { const s=fs.readFileSync(f,'utf8'); if (!s.includes('taasinteriorstyling.in')) throw new Error(f + ' missing canonical domain'); } console.log('Static lint passed');\""
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }
