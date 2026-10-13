@@ -55,22 +55,21 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots.open .spots-chevron{transform:rotate(90deg)}
 @keyframes pulse-red{50%{box-shadow:0 0 0 6px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,0)}}
 /* ── Reveal card ── */
-.spots-reveal{position:fixed;top:0;left:0;width:min(220px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:9999;transition:opacity .2s,visibility .2s,transform .2s cubic-bezier(.2,.8,.2,1);transform:translateY(-6px);overflow:hidden}
+.spots-reveal{position:fixed;top:0;left:0;width:clamp(170px,55vw,220px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.05);opacity:0;visibility:hidden;pointer-events:none;z-index:9999;transition:opacity .2s,visibility .2s,transform .2s cubic-bezier(.2,.8,.2,1);transform:translateY(-6px);overflow:hidden}
 .spots-reveal::before{content:'';position:absolute;top:-8px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:var(--line)}
 .spots-reveal::after{content:'';position:absolute;top:-7px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#fff}
 .spots.open .spots-reveal{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
-/* card internals — compact personal */
-.sr-body{padding:14px 16px 15px;display:flex;flex-direction:column;gap:8px}
-.sr-price-line{display:flex;align-items:baseline;gap:7px}
-.sr-free{font-size:28px;font-weight:500;letter-spacing:-.06em;line-height:1;color:var(--ink)}
-.sr-was{font-size:11px;color:var(--mut);text-decoration:line-through;text-decoration-color:#c0392b;align-self:flex-end;padding-bottom:2px}
-.sr-msg{font-size:11.5px;color:var(--mut);line-height:1.45}
+/* card internals — scales with viewport */
+.sr-body{padding:clamp(10px,3vw,14px) clamp(12px,3.5vw,16px);display:flex;flex-direction:column;gap:clamp(6px,1.5vw,8px)}
+.sr-price-line{display:flex;align-items:baseline;gap:6px}
+.sr-free{font-size:clamp(22px,5.5vw,28px);font-weight:500;letter-spacing:-.06em;line-height:1;color:var(--ink)}
+.sr-was{font-size:clamp(10px,2.5vw,11px);color:var(--mut);text-decoration:line-through;text-decoration-color:#c0392b;align-self:flex-end;padding-bottom:2px}
+.sr-msg{font-size:clamp(10.5px,2.5vw,11.5px);color:var(--mut);line-height:1.4}
 .sr-msg strong{color:var(--ink);font-weight:500}
-.sr-cta{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:#fff;border-radius:8px;padding:9px 14px;font-size:12.5px;font-weight:500;text-decoration:none;transition:background .15s,transform .12s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;letter-spacing:.01em}
+.sr-cta{display:inline-flex;align-items:center;gap:5px;background:var(--ink);color:#fff;border-radius:8px;padding:clamp(7px,2vw,9px) clamp(11px,3vw,14px);font-size:clamp(11px,2.8vw,12.5px);font-weight:500;text-decoration:none;transition:background .15s,transform .12s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;letter-spacing:.01em}
 .sr-cta:hover{background:#222}
 .sr-cta:active{transform:scale(.97)}
-.sr-cta svg{width:14px;height:14px;flex-shrink:0}
-.sr-fine{font-size:9.5px;color:var(--mut);letter-spacing:.02em;text-align:center}
+.sr-cta svg{width:clamp(11px,2.5vw,14px);height:clamp(11px,2.5vw,14px);flex-shrink:0}
 /* responsive */
 @media(max-width:720px){
   .spots{padding:7px 10px;font-size:11px}
@@ -792,10 +791,11 @@ We look forward to reviewing your space.
     function positionCard() {
       const r  = chip.getBoundingClientRect();
       const vw = window.innerWidth;
-      const cw = Math.min(220, vw - 20);
+      // Mirror CSS clamp(170px, 55vw, 220px)
+      const cw = Math.min(Math.max(170, vw * 0.55), 220, vw - 20);
       let cl   = r.right - cw;
       cl = Math.max(10, Math.min(cl, vw - cw - 10));
-      sRev.style.top   = (r.bottom + 12) + 'px';
+      sRev.style.top   = (r.bottom + 10) + 'px';
       sRev.style.left  = cl + 'px';
       sRev.style.right = 'auto';
       sRev.style.width = cw + 'px';
