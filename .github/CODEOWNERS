@@ -1,0 +1,16 @@
+# CODEOWNERS – mandatory review for security-sensitive files
+# Any change to these paths requires approval from the repo owner.
+# Ref: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: require owner sign-off on everything not listed below
+* @taas-living
+
+# Phone number and contact constants – the most critical files
+/index.html                   @taas-living
+/lib/site.ts                  @taas-living
+/scripts/verify-contact.mjs   @taas-living
+
+# Deployment and security config
+/vercel.json                  @taas-living
+/.github/                     @taas-living
+/robots.txt                   @taas-living

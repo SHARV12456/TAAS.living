@@ -16,6 +16,6 @@ Option B – CLI:  npm i -g vercel  →  cd taas-deploy  →  vercel --prod
 Framework preset: "Other". Build command: none. Output directory: leave blank.
 
 ## After deploy
-- If your final domain is not taas1.vercel.app, find/replace that URL in
+- If your final domain is not taasinteriorstyling.in, find/replace that URL in
   index.html, robots.txt, sitemap.xml and llms.txt.
 - Test the form end-to-end on a phone (WhatsApp opens with the pre-filled message).

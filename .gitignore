@@ -1,0 +1,38 @@
+# Environment – NEVER commit real secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# OS artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build / Next.js (unused now but guards future migration)
+.next/
+out/
+dist/
+build/
+
+# Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

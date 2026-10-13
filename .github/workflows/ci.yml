@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-audit:
+    name: Lint · Build · Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint – canonical domain present in all key files
+        run: npm run lint
+
+      - name: Build – contact-guard + static build
+        run: npm run build
+
+      - name: Audit – check for high/critical npm vulnerabilities
+        run: npm audit --audit-level=high
+
+      - name: Secret scan – check for accidental secrets in source
+        run: |
+          echo "Scanning for secret-like patterns..."
+          ! grep -rniE \
+            "(-----BEGIN (RSA|EC|PGP|DSA|OPENSSH) PRIVATE KEY|AKIA[0-9A-Z]{16}|['\"]ghp_[A-Za-z0-9]{36}['\"]|['\"]glpat-[A-Za-z0-9-_]{20}['\"])" \
+            --include="*.html" --include="*.js" --include="*.mjs" \
+            --include="*.ts" --include="*.json" --include="*.txt" \
+            . 2>/dev/null \
+            || (echo "ERROR: Secret-like string detected." && exit 1)
+          echo "Secret scan passed."
+
+      - name: Verify approved phone number only
+        run: node scripts/verify-contact.mjs

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://taas1.vercel.app/sitemap.xml
+Sitemap: https://taasinteriorstyling.in/sitemap.xml
