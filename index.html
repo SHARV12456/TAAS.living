@@ -152,14 +152,37 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 .rule strong{display:inline-block;margin-top:4px;font-size:15px;letter-spacing:-.02em}
 .rule .price{display:block;margin-top:4px;font-size:15px;font-weight:500}
 .rule .note{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
-.header-tools{display:none}
+.header-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .header-cta{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.7);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s,border-color .2s,background .2s}
 .header-cta:hover{transform:translateY(-1px);border-color:#cfcfc9;background:#fff}
 .header-cta:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.chat-dot{display:none}
-.slot-badge{display:none}
-.slot-trigger{display:none}
-.slot-panel{display:none}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 0 4px rgba(22,106,77,.08)}
+@media(max-width:720px){
+  header{flex-wrap:wrap;gap:10px 12px;padding-top:18px;padding-bottom:18px}
+  .logo{letter-spacing:.12em;font-size:12px;flex:0 0 auto}
+  .spots{margin-left:auto;font-size:11px;white-space:nowrap}
+  .spots span{display:none}
+  .spots::after{content:"5 spots";white-space:nowrap}
+  .header-tools{margin-left:auto}
+  .sticky{display:flex}.spots span{display:none}.spots::after{content:"5 spots"}.price{grid-template-columns:1fr}.rows li span{display:none}.md{width:min(100%, 560px);padding:28px 22px 24px;border-radius:26px}.ba{aspect-ratio:1/1}.hero h1{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 i{transform:none}html{scroll-behavior:auto}}
+.intro-ov{position:fixed;inset:0;z-index:100;background:#f1eee6;display:grid;place-content:center;justify-items:center;gap:28px;transition:transform .9s cubic-bezier(.76,0,.24,1);cursor:pointer}
+.intro-ov.out{transform:translateY(-100%)}
+.intro-ov svg{width:84px;height:auto;overflow:visible}
+.intro-ov svg *{transform-box:fill-box}
+.i-arch{transform-origin:50% 100%;animation:iarch .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes iarch{from{transform:scaleY(0)}}
+.i-line{stroke-dasharray:1;stroke-dashoffset:1;animation:idraw 1s .5s ease forwards}
+@keyframes idraw{to{stroke-dashoffset:0}}
+.i-bar{transform-origin:50% 50%;animation:ibar .4s 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ibar{from{transform:scaleX(0)}}
+.i-stem{transform-origin:50% 0;animation:istem .45s 1.45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes istem{from{transform:scaleY(0)}}
+.i-word{font-weight:600;font-size:15px;color:#11140e;letter-spacing:.6em;padding-left:.6em;animation:iw .8s 1.7s both}
+@keyframes iw{from{opacity:0;letter-spacing:1em}}
+body.intro{overflow:hidden}
+body.intro .hero h1 i{animation-play-state:paused}
 </style>
 </head>
 <body class="intro" id="top">
@@ -170,7 +193,10 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 </div>
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
-  <div class="spots"><i class="dot"></i><span>5 spots, no booking fee</span></div>
+  <div class="spots"><i class="dot"></i><span>5 spots</span></div>
+  <div class="header-tools">
+    <a class="header-cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20know%20more%20about%20the%20Design%20Challenge%2C%20budget%2C%20included%20work%2C%20and%20the%20latest%20slots." target="_blank" rel="noopener"><span class="chat-dot" aria-hidden="true"></span>Chat</a>
+  </div>
 </header>
 
 <main>
