@@ -132,8 +132,34 @@ footer .cta-row{margin-bottom:28px}
 footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 .bot{display:flex;justify-content:space-between;margin-top:80px;padding-top:24px;border-top:1px solid #222;font-size:13px;color:#8e8e8a}
 .bot b{color:#fff;letter-spacing:.2em}
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;justify-content:space-between;align-items:center;padding:16px 24px calc(16px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);font-size:22px;letter-spacing:-.02em;font-weight:500}
-.sticky .btn{padding:16px 32px;font-size:16px}
+/* ── Sticky bar ── */
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  display:none;align-items:center;justify-content:space-between;gap:16px;
+  padding:clamp(12px,2.5vw,18px) clamp(16px,4vw,32px);
+  padding-bottom:calc(clamp(12px,2.5vw,18px) + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -4px 24px rgba(0,0,0,.06)
+}
+.sticky-label{
+  display:flex;flex-direction:column;gap:2px;min-width:0
+}
+.sticky-label-main{
+  font-size:clamp(15px,2.2vw,19px);font-weight:500;letter-spacing:-.02em;
+  color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.sticky-label-sub{
+  font-size:clamp(11px,1.4vw,13px);color:var(--mut)
+}
+.sticky .btn{
+  flex-shrink:0;
+  padding:clamp(12px,2vw,16px) clamp(22px,3.5vw,36px);
+  font-size:clamp(14px,1.8vw,16px);
+  white-space:nowrap
+}
+
 .ov{position:fixed;inset:0;z-index:50;background:rgba(236,236,232,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px;overflow:auto}
 .ov.open{display:flex}
 .md{position:relative;width:min(100%,560px);max-width:560px;background:#fff;color:var(--ink);border-radius:32px;padding:34px 36px 32px;box-shadow:0 30px 80px rgba(0,0,0,.14);overflow:hidden;animation:pop .35s cubic-bezier(.2,.8,.2,1)}
@@ -245,8 +271,6 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
   .acts{gap:10px}
   .acts .btn{flex:1 1 140px}
   body{padding-bottom:80px}
-  .sticky{padding:13px 18px calc(13px + env(safe-area-inset-bottom));font-size:18px}
-  .sticky .btn{padding:13px 24px;font-size:15px}
 }
 
 /* ── ≤ 480px – standard phone ── */
@@ -266,6 +290,10 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
   .rule{padding:10px 12px}
   .rule h4{font-size:13px}
   .alt{font-size:13px}
+  /* sticky: stack vertically on tiny phones */
+  .sticky{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+  .sticky .btn{width:100%;justify-content:center;padding:14px 20px;font-size:15px}
+  body{padding-bottom:108px}
 }
 
 /* ── ≤ 375px – small phones (iPhone SE, Galaxy A03) ── */
@@ -506,7 +534,13 @@ body.intro .hero h1 i{animation-play-state:paused}
   </div>
 </footer>
 
-<div class="sticky"><span>₹1.45L Challenge</span><button class="btn" data-open>Apply</button></div>
+<div class="sticky" aria-label="Apply for TAAS Design Challenge">
+  <div class="sticky-label">
+    <span class="sticky-label-main">₹1.45L Design Challenge</span>
+    <span class="sticky-label-sub">Design fee waived · First 5 clients</span>
+  </div>
+  <button class="btn" data-open>Apply now <b aria-hidden="true">→</b></button>
+</div>
 
 <div class="ov" id="ov" aria-hidden="true">
   <div class="md" role="dialog" aria-modal="true" aria-label="Apply for the TAAS Design Challenge">
