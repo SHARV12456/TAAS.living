@@ -135,28 +135,27 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 /* ── Sticky bar ── */
 .sticky{
   position:fixed;left:0;right:0;bottom:0;z-index:20;
-  display:none;align-items:center;justify-content:space-between;gap:16px;
-  padding:clamp(12px,2.5vw,18px) clamp(16px,4vw,32px);
-  padding-bottom:calc(clamp(12px,2.5vw,18px) + env(safe-area-inset-bottom));
+  display:none;align-items:center;justify-content:space-between;
+  gap:clamp(12px,3vw,24px);
+  padding:clamp(14px,3vw,22px) clamp(20px,5vw,48px);
+  padding-bottom:calc(clamp(14px,3vw,22px) + env(safe-area-inset-bottom));
   background:rgba(255,255,255,.96);
   -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
   border-top:1px solid var(--line);
-  box-shadow:0 -4px 24px rgba(0,0,0,.06)
+  box-shadow:0 -4px 28px rgba(0,0,0,.07)
 }
 .sticky-label{
   display:flex;flex-direction:column;gap:2px;min-width:0
 }
 .sticky-label-main{
-  font-size:clamp(15px,2.2vw,19px);font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(17px,3.8vw,22px);
+  font-weight:500;letter-spacing:-.03em;
   color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-}
-.sticky-label-sub{
-  font-size:clamp(11px,1.4vw,13px);color:var(--mut)
 }
 .sticky .btn{
   flex-shrink:0;
-  padding:clamp(12px,2vw,16px) clamp(22px,3.5vw,36px);
-  font-size:clamp(14px,1.8vw,16px);
+  padding:clamp(13px,2.8vw,18px) clamp(24px,5vw,44px);
+  font-size:clamp(15px,2.8vw,17px);
   white-space:nowrap
 }
 
@@ -290,11 +289,8 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
   .rule{padding:10px 12px}
   .rule h4{font-size:13px}
   .alt{font-size:13px}
-  /* sticky: always one row — compact on small phones */
-  .sticky{gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
-  .sticky-label-main{font-size:14px}
-  .sticky .btn{padding:10px 18px;font-size:13px}
-  body{padding-bottom:72px}
+  /* sticky: let clamp() handle sizing — no overrides needed */
+  body{padding-bottom:80px}
 }
 
 /* ── ≤ 375px – small phones (iPhone SE, Galaxy A03) ── */
