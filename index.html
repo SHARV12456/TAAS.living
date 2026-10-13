@@ -199,7 +199,13 @@ body.intro .hero h1 i{animation-play-state:paused}
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
   <div class="spots" tabindex="0" aria-label="Only 5 slots open. First 5 clients: ₹25,000 fee waived.">
-    <div class="spots-label"><span class="dot" aria-hidden="true"></span><span>Only 5 slots open.</span></div>
+    <div class="spots-label">
+      <span aria-hidden="true" style="position:relative; display:inline-block; width:10px; height:10px; margin-right:2px;">
+        <span style="position:absolute; inset:-6px; border:1px solid rgba(217,77,77,.45); border-radius:50%; animation:pulse-red 2.4s infinite; opacity:.75;"></span>
+        <span class="dot" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#d94d4d; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); animation:pulse-red 2.4s infinite;"></span>
+      </span>
+      <span>Only 5 slots open.</span>
+    </div>
     <div class="spots-reveal">
       <strong>First 5 clients</strong>
       <p>₹25,000 fee waived.</p>
