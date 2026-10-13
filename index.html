@@ -152,6 +152,11 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 .rule strong{display:inline-block;margin-top:4px;font-size:15px;letter-spacing:-.02em}
 .rule .price{display:block;margin-top:4px;font-size:15px;font-weight:500}
 .rule .note{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+.header-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.header-cta{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.7);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s,border-color .2s,background .2s}
+.header-cta:hover{transform:translateY(-1px);border-color:#cfcfc9;background:#fff}
+.header-cta:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 0 4px rgba(22,106,77,.08)}
 @media(max-width:720px){.sticky{display:flex}.spots span{display:none}.spots::after{content:"5 spots"}.price{grid-template-columns:1fr}.rows li span{display:none}.md{width:min(100%, 560px);padding:28px 22px 24px;border-radius:26px}.ba{aspect-ratio:1/1}.hero h1{max-width:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 i{transform:none}html{scroll-behavior:auto}}
 .intro-ov{position:fixed;inset:0;z-index:100;background:#f1eee6;display:grid;place-content:center;justify-items:center;gap:28px;transition:transform .9s cubic-bezier(.76,0,.24,1);cursor:pointer}
@@ -181,17 +186,16 @@ body.intro .hero h1 i{animation-play-state:paused}
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
   <div class="spots"><i class="dot"></i><span>Mumbai • 5 spots, no booking fee</span></div>
+  <div class="header-tools">
+    <a class="header-cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20know%20more%20about%20the%20Design%20Challenge%2C%20budget%2C%20included%20work%2C%20and%20the%20latest%20slots." target="_blank" rel="noopener"><span class="chat-dot" aria-hidden="true"></span>Chat</a>
+  </div>
 </header>
 
 <main>
 <div class="hero">
   <h1><span><i>Transform your</i></span><span><i>space for</i></span><span><i>₹1.45L</i></span></h1>
   <p class="sub">Ten days. No civil work. No hidden costs.</p>
-  <div class="cta-row">
-    <a class="btn" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20apply%20for%20the%20Design%20Challenge." target="_blank" rel="noopener noreferrer">Apply on WhatsApp <b aria-hidden="true">→</b></a>
-    <button class="btn ghost" type="button" data-open>Quick form</button>
-    <small>45 seconds</small>
-  </div>
+  <div class="cta-row"><button class="btn" data-open>Apply for the Challenge <b aria-hidden="true">→</b></button><small>45 seconds</small></div>
 </div>
 
 <div class="ba-wrap">
@@ -255,7 +259,7 @@ body.intro .hero h1 i{animation-play-state:paused}
   <div class="wrap">
     <h2>Ready to see your space differently?</h2>
     <div class="cta-row"><button class="btn light" data-open>Apply for the Challenge <b aria-hidden="true">→</b></button>
-    <a class="btn ghost" href="https://wa.me/917400162509" target="_blank" rel="noopener">WhatsApp +91 74001 62509</a></div>
+    <a class="btn ghost" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20know%20more%20about%20the%20Design%20Challenge%2C%20budget%2C%20included%20work%2C%20and%20the%20latest%20slots." target="_blank" rel="noopener">WhatsApp +91 74001 62509</a></div>
     <p class="fine">₹1.45 lakh is a defined budget and scope, not an unlimited renovation. We explain the final terms before you proceed.</p>
     <div class="bot"><b>TAAS</b><a href="https://instagram.com/taas.living" target="_blank" rel="noopener">@taas.living</a></div>
   </div>
