@@ -55,10 +55,10 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots.open .spots-chevron{transform:rotate(90deg)}
 @keyframes pulse-red{50%{box-shadow:0 0 0 6px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,0)}}
 /* ── Reveal card ── */
-.spots-reveal{position:fixed;top:0;left:0;width:min(300px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15),0 4px 16px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:9999;transition:opacity .22s,visibility .22s;overflow:hidden}
-.spots-reveal::before{content:'';position:absolute;top:-8px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:rgba(0,0,0,.08)}
-.spots-reveal::after{content:'';position:absolute;top:-7px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#0e0e0e}
-.spots.open .spots-reveal{opacity:1;visibility:visible;pointer-events:auto}
+.spots-reveal{position:fixed;top:0;left:0;width:min(220px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:9999;transition:opacity .2s,visibility .2s,transform .2s cubic-bezier(.2,.8,.2,1);transform:translateY(-6px);overflow:hidden}
+.spots-reveal::before{content:'';position:absolute;top:-8px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:var(--line)}
+.spots-reveal::after{content:'';position:absolute;top:-7px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#fff}
+.spots.open .spots-reveal{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
 /* card internals — compact TAAS style */
 .sr-body{padding:16px 18px 18px}
 .sr-eyebrow{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
@@ -794,7 +794,7 @@ We look forward to reviewing your space.
     function positionCard() {
       const r  = chip.getBoundingClientRect();
       const vw = window.innerWidth;
-      const cw = Math.min(300, vw - 20);
+      const cw = Math.min(220, vw - 20);
       let cl   = r.right - cw;
       cl = Math.max(10, Math.min(cl, vw - cw - 10));
       sRev.style.top   = (r.bottom + 12) + 'px';
