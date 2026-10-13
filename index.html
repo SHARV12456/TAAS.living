@@ -46,9 +46,14 @@ h1,h2{font-weight:500;letter-spacing:-.04em;line-height:.98}
 header{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);max-width:1200px;margin:0 auto}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.22em;font-size:14px}
 .logo svg{width:22px;height:26px}
-.spots{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut)}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.4s infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(22,106,77,.15)}}
+.spots{position:relative;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);cursor:pointer;transition:border-color .2s,background .2s}
+.spots:hover,.spots:focus-within{border-color:#d3d3ce;background:#fff}
+.spots .spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.spots .spots-reveal{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-8px);width:min(260px,72vw);padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.12);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s,visibility .2s}
+.spots:hover .spots-reveal,.spots:focus-within .spots-reveal,.spots:active .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.spots .spots-reveal strong{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.spots .spots-reveal p{font-size:12px;line-height:1.5;color:var(--ink);margin:0 0 10px}
+.spots .slots-cta{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:var(--r);padding:18px 30px;font-weight:500;font-size:15px;transition:transform .2s,background .2s}
 .btn:hover{transform:translateY(-2px);background:#222}
 .btn.ghost{background:transparent;border:1px solid #444;color:#fff}
@@ -161,10 +166,8 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
   header{flex-wrap:wrap;gap:10px 12px;padding-top:18px;padding-bottom:18px}
   .logo{letter-spacing:.12em;font-size:12px;flex:0 0 auto}
   .spots{margin-left:auto;font-size:11px;white-space:nowrap}
-  .spots span{display:none}
-  .spots::after{content:"5 spots";white-space:nowrap}
   .header-tools{margin-left:auto}
-  .sticky{display:flex}.spots span{display:none}.spots::after{content:"5 spots"}.price{grid-template-columns:1fr}.rows li span{display:none}.md{width:min(100%, 560px);padding:28px 22px 24px;border-radius:26px}.ba{aspect-ratio:1/1}.hero h1{max-width:none}
+  .sticky{display:flex}.price{grid-template-columns:1fr}.rows li span{display:none}.md{width:min(100%, 560px);padding:28px 22px 24px;border-radius:26px}.ba{aspect-ratio:1/1}.hero h1{max-width:none}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 i{transform:none}html{scroll-behavior:auto}}
 .intro-ov{position:fixed;inset:0;z-index:100;background:#f1eee6;display:grid;place-content:center;justify-items:center;gap:28px;transition:transform .9s cubic-bezier(.76,0,.24,1);cursor:pointer}
@@ -193,7 +196,14 @@ body.intro .hero h1 i{animation-play-state:paused}
 </div>
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
-  <div class="spots"><i class="dot"></i><span>5 spots</span></div>
+  <div class="spots" tabindex="0" aria-label="Only 5 slots open. First 5 clients: ₹25,000 fee waived.">
+    <div class="spots-label"><i class="dot"></i><span>Only 5 slots open.</span></div>
+    <div class="spots-reveal">
+      <strong>First 5 clients</strong>
+      <p>₹25,000 fee waived.</p>
+      <a class="slots-cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20claim%20my%20slot%20for%20the%20Design%20Challenge." target="_blank" rel="noopener">Claim your slot</a>
+    </div>
+  </div>
   <div class="header-tools">
     <a class="header-cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20know%20more%20about%20the%20Design%20Challenge%2C%20budget%2C%20included%20work%2C%20and%20the%20latest%20slots." target="_blank" rel="noopener"><span class="chat-dot" aria-hidden="true"></span>Chat</a>
   </div>
