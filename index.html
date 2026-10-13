@@ -46,18 +46,44 @@ h1,h2{font-weight:500;letter-spacing:-.04em;line-height:.98}
 header{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);max-width:1200px;margin:0 auto}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.22em;font-size:14px}
 .logo svg{width:22px;height:26px}
-.spots{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);cursor:pointer;transition:border-color .2s,background .2s;text-decoration:none}
-.spots:hover,.spots:focus-visible,.spots:focus-within{border-color:#d3d3ce;background:#fff;outline:none}
-.spots .spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
-.spots .dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:#d94d4d;animation:pulse-red 2.4s infinite}
+/* ── Slot chip ── */
+.spots{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mut);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation}
+.spots:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.spots.open,.spots:hover{border-color:#d3d3ce;background:#fff}
+.spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;pointer-events:none}
+.spots-chevron{font-size:11px;line-height:1;display:inline-block;transition:transform .25s cubic-bezier(.2,.8,.2,1);margin-left:1px;opacity:.5}
+.spots.open .spots-chevron{transform:rotate(90deg)}
 @keyframes pulse-red{50%{box-shadow:0 0 0 6px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,0)}}
-.spots .spots-reveal{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-8px);width:min(260px,72vw);padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.12);opacity:0;visibility:hidden;pointer-events:none;z-index:10;transition:opacity .2s,transform .2s,visibility .2s}
-.spots:hover .spots-reveal,.spots:focus-visible .spots-reveal,.spots:focus-within .spots-reveal,.spots:active .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
-@media(max-width:720px){.spots{padding:7px 10px;font-size:11px}.spots .spots-label{gap:6px}.spots .spots-reveal{top:calc(100% + 10px);width:220px}}
-@media (max-width:420px){
-  .spots{display:inline-flex;max-width:100%}
-  .spots .spots-reveal{left:0;top:calc(100% + 8px);width:220px;transform:none}
-  .spots:hover .spots-reveal,.spots:focus-visible .spots-reveal,.spots:focus-within .spots-reveal,.spots:active .spots-reveal{left:0;transform:none}
+/* ── Reveal card ── */
+.spots-reveal{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-8px);width:min(300px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15),0 4px 16px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:300;transition:opacity .22s,transform .25s cubic-bezier(.2,.8,.2,1),visibility .22s;overflow:hidden}
+.spots-reveal::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:rgba(0,0,0,.08)}
+.spots-reveal::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#0e0e0e}
+.spots.open .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
+/* card internals */
+.sr-head{background:var(--ink);color:#fff;padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
+.sr-head-label{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;opacity:.55}
+.sr-head-badge{font-size:11px;font-weight:600;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:3px 10px;letter-spacing:.04em}
+.sr-body{padding:16px 18px 18px}
+.sr-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.sr-free{font-size:52px;font-weight:500;letter-spacing:-.06em;line-height:.88;color:var(--green)}
+.sr-was{font-size:14px;color:var(--mut);text-decoration:line-through;text-decoration-color:#b3261e;font-weight:400}
+.sr-sub{font-size:12px;color:var(--mut);margin-bottom:16px;line-height:1.45}
+.sr-cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px 18px;background:#1a7f4b;color:#fff;border-radius:14px;font-size:15px;font-weight:500;text-decoration:none;transition:background .18s,transform .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;box-sizing:border-box}
+.sr-cta:hover{background:#166a4d}
+.sr-cta:active{transform:scale(.98);background:#125c41}
+.sr-cta svg{width:20px;height:20px;flex-shrink:0;fill:currentColor}
+.sr-fine{font-size:11px;color:var(--mut);text-align:center;margin-top:11px;line-height:1.4}
+/* responsive */
+@media(max-width:720px){
+  .spots{padding:7px 10px;font-size:11px}
+  .spots-label{gap:6px}
+  .spots-reveal{left:0;transform:translateY(-8px);width:min(300px,calc(100vw - 20px))}
+  .spots-reveal::before,.spots-reveal::after{left:22px;transform:none}
+  .spots.open .spots-reveal{transform:translateY(0)}
+}
+@media(max-width:420px){
+  .spots-reveal{left:-4px;width:calc(100vw - 16px)}
+  .spots-reveal::before,.spots-reveal::after{left:18px}
 }
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:var(--r);padding:18px 30px;font-weight:500;font-size:15px;transition:transform .2s,background .2s}
 .btn:hover{transform:translateY(-2px);background:#222}
@@ -201,12 +227,29 @@ body.intro .hero h1 i{animation-play-state:paused}
 </div>
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
-  <div class="spots" tabindex="0" aria-label="Only 5 slots open. First 5 clients: ₹25,000 fee waived.">
-    <div class="spots-label"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" style="display:inline-block;vertical-align:middle;overflow:visible"><circle cx="9" cy="9" r="7" fill="none" stroke="#d94d4d" stroke-width="1.2" opacity="0.35"><animate attributeName="r" values="3;7;3" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="9" cy="9" r="4.2" fill="#d94d4d" opacity="0.9"><animate attributeName="r" values="2.5;4.2;2.5" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2.4s" repeatCount="indefinite"/></circle></svg><span>Only 5 slots open.</span></div>
-    <div class="spots-reveal">
-      <strong>First 5 clients</strong>
-      <p>₹25,000 fee waived.</p>
-      <a class="slots-claim" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20claim%20my%20slot%20for%20the%20Design%20Challenge." target="_blank" rel="noopener noreferrer">Claim your slot</a>
+  <div class="spots" id="slots-chip" role="button" tabindex="0" aria-expanded="false" aria-haspopup="true" aria-label="Only 5 slots open — tap to see offer">
+    <div class="spots-label">
+      <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true" style="display:inline-block;vertical-align:middle;overflow:visible;flex-shrink:0"><circle cx="9" cy="9" r="7" fill="none" stroke="#d94d4d" stroke-width="1.2" opacity="0.35"><animate attributeName="r" values="3;7;3" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="9" cy="9" r="4.2" fill="#d94d4d" opacity="0.9"><animate attributeName="r" values="2.5;4.2;2.5" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2.4s" repeatCount="indefinite"/></circle></svg>
+      <span>Only 5 slots open.</span>
+      <span class="spots-chevron" aria-hidden="true">›</span>
+    </div>
+    <div class="spots-reveal" id="slots-reveal">
+      <div class="sr-head">
+        <span class="sr-head-label">First 5 clients</span>
+        <span class="sr-head-badge">Launch offer</span>
+      </div>
+      <div class="sr-body">
+        <div class="sr-price-row">
+          <span class="sr-free">₹0</span>
+          <span class="sr-was">was ₹25,000</span>
+        </div>
+        <p class="sr-sub">Design + direction fee fully waived. No booking fee. Fixed ₹1.45L execution budget.</p>
+        <a class="sr-cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20claim%20my%20slot%20for%20the%20Design%20Challenge." target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.518 5.829L.057 23.886a.5.5 0 0 0 .611.612l6.198-1.395A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.37l-.36-.213-3.724.838.889-3.63-.233-.374A9.774 9.774 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+          Claim your slot
+        </a>
+        <p class="sr-fine">5 slots only · +91 74001 62509</p>
+      </div>
     </div>
   </div>
   <div class="header-tools">
@@ -653,6 +696,25 @@ We look forward to reviewing your space.
     title.textContent = pane.dataset.t;
     pane.prepend(title);
   });
+  /* ── Slot chip: click/touch toggle (iOS + Android safe) ── */
+  const chip = document.getElementById('slots-chip');
+  const sRev = document.getElementById('slots-reveal');
+  if (chip && sRev) {
+    const openChip  = () => { chip.classList.add('open');    chip.setAttribute('aria-expanded', 'true'); };
+    const closeChip = () => { chip.classList.remove('open'); chip.setAttribute('aria-expanded', 'false'); };
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      chip.classList.contains('open') ? closeChip() : openChip();
+    });
+    chip.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); chip.classList.contains('open') ? closeChip() : openChip(); }
+      if (e.key === 'Escape') closeChip();
+    });
+    sRev.addEventListener('click', (e) => e.stopPropagation()); // keep open while interacting inside
+    document.addEventListener('click', closeChip);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeChip(); });
+  }
+
 })();
 </script>
 </body>
