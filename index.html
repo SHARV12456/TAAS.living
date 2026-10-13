@@ -51,9 +51,14 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots .spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .spots .dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:#d94d4d;animation:pulse-red 2.4s infinite}
 @keyframes pulse-red{50%{box-shadow:0 0 0 6px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,0)}}
-.spots .spots-reveal{position:absolute;left:50%;top:calc(100% + 12px);transform:translateX(-50%) translateY(-8px);width:210px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.12);opacity:0;visibility:hidden;pointer-events:none;z-index:10;transition:opacity .2s,transform .2s,visibility .2s}
+.spots .spots-reveal{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-8px);width:min(260px,72vw);padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.12);opacity:0;visibility:hidden;pointer-events:none;z-index:10;transition:opacity .2s,transform .2s,visibility .2s}
 .spots:hover .spots-reveal,.spots:focus-visible .spots-reveal,.spots:focus-within .spots-reveal,.spots:active .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
-@media(max-width:720px){.spots{padding:7px 10px;font-size:11px}.spots .spots-label{gap:6px}.spots .spots-reveal{width:200px;top:calc(100% + 10px)}}
+@media(max-width:720px){.spots{padding:7px 10px;font-size:11px}.spots .spots-label{gap:6px}.spots .spots-reveal{top:calc(100% + 10px);width:220px}}
+@media (max-width:420px){
+  .spots{display:inline-flex;max-width:100%}
+  .spots .spots-reveal{left:0;top:calc(100% + 8px);width:220px;transform:none}
+  .spots:hover .spots-reveal,.spots:focus-visible .spots-reveal,.spots:focus-within .spots-reveal,.spots:active .spots-reveal{left:0;transform:none}
+}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:var(--r);padding:18px 30px;font-weight:500;font-size:15px;transition:transform .2s,background .2s}
 .btn:hover{transform:translateY(-2px);background:#222}
 .btn.ghost{background:transparent;border:1px solid #444;color:#fff}
