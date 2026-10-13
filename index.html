@@ -55,10 +55,10 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots.open .spots-chevron{transform:rotate(90deg)}
 @keyframes pulse-red{50%{box-shadow:0 0 0 6px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,0)}}
 /* ── Reveal card ── */
-.spots-reveal{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-8px);width:min(300px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15),0 4px 16px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:300;transition:opacity .22s,transform .25s cubic-bezier(.2,.8,.2,1),visibility .22s;overflow:hidden}
-.spots-reveal::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:rgba(0,0,0,.08)}
-.spots-reveal::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#0e0e0e}
-.spots.open .spots-reveal{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.spots-reveal{position:fixed;top:0;left:0;width:min(300px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15),0 4px 16px rgba(0,0,0,.06);opacity:0;visibility:hidden;pointer-events:none;z-index:9999;transition:opacity .22s,visibility .22s;overflow:hidden}
+.spots-reveal::before{content:'';position:absolute;top:-8px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:8px solid transparent;border-top:0;border-bottom-color:rgba(0,0,0,.08)}
+.spots-reveal::after{content:'';position:absolute;top:-7px;left:var(--arrow-x,50%);transform:translateX(-50%);width:0;height:0;border:7px solid transparent;border-top:0;border-bottom-color:#0e0e0e}
+.spots.open .spots-reveal{opacity:1;visibility:visible;pointer-events:auto}
 /* card internals */
 .sr-head{background:var(--ink);color:#fff;padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
 .sr-head-label{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;opacity:.55}
@@ -77,14 +77,6 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 @media(max-width:720px){
   .spots{padding:7px 10px;font-size:11px}
   .spots-label{gap:6px}
-  /* chip is on RIGHT side of header — anchor card's right edge to chip's right edge */
-  .spots-reveal{left:auto;right:0;transform:translateY(-8px);width:min(300px,calc(100vw - 20px))}
-  .spots-reveal::before,.spots-reveal::after{left:auto;right:18px;transform:none}
-  .spots.open .spots-reveal{transform:translateY(0)}
-}
-@media(max-width:420px){
-  .spots-reveal{right:0;left:auto;width:calc(100vw - 20px)}
-  .spots-reveal::before,.spots-reveal::after{right:14px;left:auto}
 }
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:var(--r);padding:18px 30px;font-weight:500;font-size:15px;transition:transform .2s,background .2s}
 .btn:hover{transform:translateY(-2px);background:#222}
@@ -799,11 +791,23 @@ We look forward to reviewing your space.
     title.textContent = pane.dataset.t;
     pane.prepend(title);
   });
-  /* ── Slot chip: click/touch toggle (iOS + Android safe) ── */
+  /* ── Slot chip: viewport-safe fixed positioning ── */
   const chip = document.getElementById('slots-chip');
   const sRev = document.getElementById('slots-reveal');
   if (chip && sRev) {
-    const openChip  = () => { chip.classList.add('open');    chip.setAttribute('aria-expanded', 'true'); };
+    function positionCard() {
+      const r  = chip.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const cw = Math.min(300, vw - 20);
+      let cl   = r.right - cw;
+      cl = Math.max(10, Math.min(cl, vw - cw - 10));
+      sRev.style.top   = (r.bottom + 12) + 'px';
+      sRev.style.left  = cl + 'px';
+      sRev.style.right = 'auto';
+      sRev.style.width = cw + 'px';
+      sRev.style.setProperty('--arrow-x', ((r.left + r.width / 2) - cl) + 'px');
+    }
+    const openChip  = () => { positionCard(); chip.classList.add('open');    chip.setAttribute('aria-expanded', 'true'); };
     const closeChip = () => { chip.classList.remove('open'); chip.setAttribute('aria-expanded', 'false'); };
     chip.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -813,9 +817,11 @@ We look forward to reviewing your space.
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); chip.classList.contains('open') ? closeChip() : openChip(); }
       if (e.key === 'Escape') closeChip();
     });
-    sRev.addEventListener('click', (e) => e.stopPropagation()); // keep open while interacting inside
+    sRev.addEventListener('click', (e) => e.stopPropagation());
     document.addEventListener('click', closeChip);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeChip(); });
+    window.addEventListener('scroll', closeChip, { passive: true });
+    window.addEventListener('resize', () => { if (chip.classList.contains('open')) positionCard(); }, { passive: true });
   }
 
 })();
