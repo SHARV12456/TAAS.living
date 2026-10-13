@@ -152,55 +152,14 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
 .rule strong{display:inline-block;margin-top:4px;font-size:15px;letter-spacing:-.02em}
 .rule .price{display:block;margin-top:4px;font-size:15px;font-weight:500}
 .rule .note{margin-top:6px;padding-top:6px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
-.header-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.header-tools{display:none}
 .header-cta{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.7);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s,border-color .2s,background .2s}
 .header-cta:hover{transform:translateY(-1px);border-color:#cfcfc9;background:#fff}
 .header-cta:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 0 4px rgba(22,106,77,.08)}
-.slot-badge{position:relative;display:inline-flex;align-items:center;justify-content:center}
-.slot-trigger{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.8);color:var(--ink);font:inherit;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
-.slot-trigger:hover,.slot-trigger:focus-visible{transform:translateY(-1px);border-color:#d4d4cf;background:#fff;outline:none}
-.slot-trigger .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 0 0 rgba(22,106,77,.28);animation:pulse 2.s infinite}
-.slot-panel{position:absolute;top:calc(100% + 10px);right:0;width:min(290px,76vw);padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 20px 40px rgba(0,0,0,.09);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s}
-.slot-badge:hover .slot-panel,.slot-badge:focus-within .slot-panel,.slot-badge.is-open .slot-panel{opacity:1;visibility:visible;transform:none}
-.slot-panel p{margin:0 0 10px;font-size:13px;line-height:1.45;color:var(--ink);letter-spacing:-.01em}
-.slot-panel .cta{display:inline-flex;align-items:center;justify-content:center;width:100%;padding:11px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.slot-panel .cta:hover{background:#222}
-.slot-note{display:none;margin-top:8px;font-size:11px;color:#4a4a45;letter-spacing:.04em;text-transform:uppercase}
-.slot-badge.claimed .slot-note{display:block}
-.slot-badge.claimed .slot-panel p{margin-bottom:6px}
-.slot-badge.claimed .slot-panel .cta{background:#166a4d}
-.slot-badge.claimed .slot-panel .cta::after{content:" ✓"}
-
-@media(max-width:720px){
-  header{flex-wrap:wrap;gap:10px 12px;padding-top:18px;padding-bottom:18px}
-  .logo{letter-spacing:.12em;font-size:12px;flex:0 0 auto}
-  .spots{margin-left:auto;font-size:11px;white-space:nowrap}
-  .spots span{display:none}
-  .spots::after{content:"5 spots, no booking fee";white-space:nowrap}
-  .header-tools{margin-left:auto}
-  .slot-trigger{padding:8px 10px;font-size:9px;letter-spacing:.1em}
-  .slot-panel{right:-8px;width:min(260px,82vw)}
-  .slot-panel p{font-size:12px}
-  .sticky{display:flex}.spots span{display:none}.spots::after{content:"5 spots, no booking fee"}.price{grid-template-columns:1fr}.rows li span{display:none}.md{width:min(100%, 560px);padding:28px 22px 24px;border-radius:26px}.ba{aspect-ratio:1/1}.hero h1{max-width:none}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 i{transform:none}html{scroll-behavior:auto}}
-.intro-ov{position:fixed;inset:0;z-index:100;background:#f1eee6;display:grid;place-content:center;justify-items:center;gap:28px;transition:transform .9s cubic-bezier(.76,0,.24,1);cursor:pointer}
-.intro-ov.out{transform:translateY(-100%)}
-.intro-ov svg{width:84px;height:auto;overflow:visible}
-.intro-ov svg *{transform-box:fill-box}
-.i-arch{transform-origin:50% 100%;animation:iarch .7s cubic-bezier(.2,.8,.2,1) both}
-@keyframes iarch{from{transform:scaleY(0)}}
-.i-line{stroke-dasharray:1;stroke-dashoffset:1;animation:idraw 1s .5s ease forwards}
-@keyframes idraw{to{stroke-dashoffset:0}}
-.i-bar{transform-origin:50% 50%;animation:ibar .4s 1.2s cubic-bezier(.2,.8,.2,1) both}
-@keyframes ibar{from{transform:scaleX(0)}}
-.i-stem{transform-origin:50% 0;animation:istem .45s 1.45s cubic-bezier(.2,.8,.2,1) both}
-@keyframes istem{from{transform:scaleY(0)}}
-.i-word{font-weight:600;font-size:15px;color:#11140e;letter-spacing:.6em;padding-left:.6em;animation:iw .8s 1.7s both}
-@keyframes iw{from{opacity:0;letter-spacing:1em}}
-body.intro{overflow:hidden}
-body.intro .hero h1 i{animation-play-state:paused}
+.chat-dot{display:none}
+.slot-badge{display:none}
+.slot-trigger{display:none}
+.slot-panel{display:none}
 </style>
 </head>
 <body class="intro" id="top">
@@ -212,19 +171,6 @@ body.intro .hero h1 i{animation-play-state:paused}
 <header>
   <a class="logo" href="#top" aria-label="TAAS home"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M0 26V11a11 11 0 0 1 22 0v15z" fill="#0e0e0e"/></svg>TAAS</a>
   <div class="spots"><i class="dot"></i><span>5 spots, no booking fee</span></div>
-  <div class="header-tools">
-    <div class="slot-badge" aria-live="polite">
-      <button class="slot-trigger" type="button" aria-label="Only 5 slots open. First 5 clients: ₹25,000 fee waived.">
-        <span class="pulse" aria-hidden="true"></span>
-        Only 5 slots open
-      </button>
-      <div class="slot-panel" role="tooltip" aria-label="Offer details">
-        <p>First 5 clients: ₹25,000 fee waived.</p>
-        <a class="cta" href="https://wa.me/917400162509?text=Hi%20TAAS%2C%20I%20want%20to%20claim%20my%20slot%20for%20the%20Design%20Challenge." target="_blank" rel="noopener">Claim your slot</a>
-        <div class="slot-note">Slot held. Chat with us to confirm.</div>
-      </div>
-    </div>
-  </div>
 </header>
 
 <main>
