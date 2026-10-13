@@ -61,11 +61,6 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .spots.open .spots-reveal{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
 /* card internals — compact personal */
 .sr-body{padding:14px 16px 15px;display:flex;flex-direction:column;gap:8px}
-.sr-slots{display:flex;align-items:center;gap:6px}
-.sr-slot-dots{display:flex;gap:3px}
-.sr-slot-dot{width:6px;height:6px;border-radius:50%;background:var(--line)}
-.sr-slot-dot.live{background:#d94d4d}
-.sr-slots-label{font-size:10px;color:var(--mut);letter-spacing:.02em}
 .sr-price-line{display:flex;align-items:baseline;gap:7px}
 .sr-free{font-size:28px;font-weight:500;letter-spacing:-.06em;line-height:1;color:var(--ink)}
 .sr-was{font-size:11px;color:var(--mut);text-decoration:line-through;text-decoration-color:#c0392b;align-self:flex-end;padding-bottom:2px}
@@ -333,16 +328,6 @@ body.intro .hero h1 i{animation-play-state:paused}
     </div>
     <div class="spots-reveal" id="slots-reveal">
       <div class="sr-body">
-        <div class="sr-slots">
-          <div class="sr-slot-dots">
-            <span class="sr-slot-dot live"></span>
-            <span class="sr-slot-dot live"></span>
-            <span class="sr-slot-dot live"></span>
-            <span class="sr-slot-dot"></span>
-            <span class="sr-slot-dot"></span>
-          </div>
-          <span class="sr-slots-label">3 of 5 slots left</span>
-        </div>
         <div class="sr-price-line">
           <span class="sr-free">₹0</span>
           <span class="sr-was">₹25,000</span>
