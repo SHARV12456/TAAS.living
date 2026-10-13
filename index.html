@@ -293,6 +293,93 @@ footer p.fine{color:#8e8e8a;font-size:13px;max-width:44ch}
   .hero h1 i{transform:none}
   html{scroll-behavior:auto}
 }
+
+/* ══════════════════════════════════════
+   MOTION SYSTEM
+   Easing tokens:
+   --ease-out : cubic-bezier(.2,.8,.2,1)   — snappy decelerate
+   --ease-spring: cubic-bezier(.34,1.56,.64,1) — micro spring
+   ══════════════════════════════════════ */
+
+/* ── Base reveal state (hidden) ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* stagger siblings */
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+.reveal[data-d="4"]{transition-delay:.32s}
+
+/* ── Fade only (no y-shift) ── */
+.fade-in{opacity:0;transition:opacity .7s cubic-bezier(.2,.8,.2,1)}
+.fade-in.in{opacity:1}
+
+/* ── Slide from left ── */
+.slide-left{opacity:0;transform:translateX(-20px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+.slide-left.in{opacity:1;transform:none}
+
+/* ── Hero sub + CTA stagger ── */
+.sub{opacity:0;transform:translateY(14px);animation:none}
+.cta-row{opacity:0;transform:translateY(14px);animation:none}
+.hero-in .sub{animation:hup .7s .55s cubic-bezier(.2,.8,.2,1) forwards}
+.hero-in .cta-row{animation:hup .7s .72s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes hup{to{opacity:1;transform:none}}
+
+/* ── Header entrance ── */
+header{opacity:0;transform:translateY(-10px);transition:opacity .55s .1s cubic-bezier(.2,.8,.2,1),transform .55s .1s cubic-bezier(.2,.8,.2,1)}
+header.in{opacity:1;transform:none}
+
+/* ── Statement large text ── */
+.statement{opacity:0;transform:translateY(18px)}
+
+/* ── Rows list items ── */
+.rows li{opacity:0;transform:translateX(-16px);transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1),padding .25s}
+.rows li.in{opacity:1;transform:none}
+.rows li.in:hover{padding-left:12px}
+
+/* ── Four grid cards ── */
+.four>div{opacity:0;transform:translateY(16px) scale(.97);transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1)}
+.four>div.in{opacity:1;transform:none}
+
+/* ── Price section ── */
+.zero,.after{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.2,.8,.2,1)}
+.zero.in,.after.in{opacity:1;transform:none}
+
+/* ── Sticky bar slide-up entrance ── */
+.sticky{transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.sticky.shown{transform:none}
+
+/* ── Button: lift + shadow on hover ── */
+.btn{box-shadow:0 0 0 rgba(0,0,0,0);transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.14)}
+.btn:active{transform:translateY(0) scale(.98);box-shadow:none}
+
+/* ── BA slider entrance ── */
+.ba{opacity:0;transform:scale(.985);transition:opacity .8s .2s cubic-bezier(.2,.8,.2,1),transform .8s .2s cubic-bezier(.2,.8,.2,1)}
+.ba.in{opacity:1;transform:none}
+
+/* ── Section h2 ── */
+section h2,.wrap>h2{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+section h2.in,.wrap>h2.in{opacity:1;transform:none}
+
+/* ── Footer h2 ── */
+footer h2{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.2,.8,.2,1)}
+footer h2.in{opacity:1;transform:none}
+
+/* ── footer CTA row ── */
+footer .cta-row{opacity:0;animation:none;transition:opacity .6s .12s cubic-bezier(.2,.8,.2,1),transform .6s .12s cubic-bezier(.2,.8,.2,1);transform:translateY(14px)}
+footer .cta-row.in{opacity:1;transform:none}
+
+/* ── Step items in timeline ── */
+.step{opacity:0;transform:translateX(-14px);transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1)}
+.step.in{opacity:1;transform:none}
+
+/* ── Pay block ── */
+.pay{opacity:0;transition:opacity .6s .25s cubic-bezier(.2,.8,.2,1)}
+.pay.in{opacity:1}
+
+
 .intro-ov{position:fixed;inset:0;z-index:100;background:#f1eee6;display:grid;place-content:center;justify-items:center;gap:28px;transition:transform .9s cubic-bezier(.76,0,.24,1);cursor:pointer}
 .intro-ov.out{transform:translateY(-100%)}
 .intro-ov svg{width:84px;height:auto;overflow:visible}
@@ -816,6 +903,131 @@ We look forward to reviewing your space.
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeChip(); });
     window.addEventListener('scroll', closeChip, { passive: true });
     window.addEventListener('resize', () => { if (chip.classList.contains('open')) positionCard(); }, { passive: true });
+  }
+
+  /* ══════════════════════════════════════
+     MOTION SYSTEM
+     ══════════════════════════════════════ */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    // ── 1. Header entrance
+    requestAnimationFrame(() => document.querySelector('header').classList.add('in'));
+
+    // ── 2. Hero: trigger sub + CTA animation after intro overlay leaves
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      // add class now; CSS animations use delays so it's fine
+      setTimeout(() => hero.classList.add('hero-in'), 100);
+    }
+
+    // ── 3. BA slider entrance on visibility
+    const baEl = document.getElementById('ba');
+    if (baEl) {
+      const baObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); baObs.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      baObs.observe(baEl);
+    }
+
+    // ── 4. General scroll-reveal observer
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    // statement
+    document.querySelectorAll('.statement').forEach(el => {
+      el.classList.add('reveal');
+      revealObs.observe(el);
+    });
+
+    // section h2 + footer h2
+    document.querySelectorAll('section h2, footer h2').forEach(el => revealObs.observe(el));
+
+    // footer cta-row
+    document.querySelectorAll('footer .cta-row').forEach(el => revealObs.observe(el));
+
+    // ── 5. Rows list — stagger each li
+    const rowsObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const items = e.target.querySelectorAll('li');
+          items.forEach((li, i) => {
+            setTimeout(() => li.classList.add('in'), i * 65);
+          });
+          rowsObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.rows').forEach(el => rowsObs.observe(el));
+
+    // ── 6. Four grid — stagger each card
+    const fourObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const cards = e.target.querySelectorAll(':scope > div');
+          cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('in'), i * 80);
+          });
+          fourObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.four').forEach(el => fourObs.observe(el));
+
+    // ── 7. Price .zero and .after
+    const priceObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          priceObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.zero, .after').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.12) + 's';
+      priceObs.observe(el);
+    });
+
+    // ── 8. Timeline steps — stagger
+    const stepObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const steps = e.target.querySelectorAll('.step');
+          steps.forEach((step, i) => {
+            setTimeout(() => step.classList.add('in'), i * 110);
+          });
+          stepObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.tl').forEach(el => stepObs.observe(el));
+
+    // ── 9. Pay block
+    document.querySelectorAll('.pay').forEach(el => revealObs.observe(el));
+
+    // ── 10. Sticky bar — slide up instead of display:none snap
+    const stickyEl = document.querySelector('.sticky');
+    if (stickyEl) {
+      // override display:none — use visibility + transform instead
+      stickyEl.style.display = 'flex';
+      let stickyVisible = false;
+      const heroBottom = () => (document.querySelector('.hero')?.getBoundingClientRect().bottom ?? 0) + window.scrollY;
+      const checkSticky = () => {
+        const shouldShow = window.scrollY > heroBottom() - window.innerHeight * 0.6;
+        if (shouldShow !== stickyVisible) {
+          stickyVisible = shouldShow;
+          stickyEl.classList.toggle('shown', shouldShow);
+        }
+      };
+      window.addEventListener('scroll', checkSticky, { passive: true });
+      checkSticky();
+    }
   }
 
 })();
