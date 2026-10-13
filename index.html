@@ -48,6 +48,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .logo svg{width:22px;height:26px}
 .spots{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);white-space:nowrap}
 .spots .dot{width:8px;height:8px;border-radius:50%;background:#d94d4d;animation:pulse-red 2.4s infinite;display:inline-block;flex-shrink:0}
+.spots-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .spots span:last-child{color:var(--ink);font-size:12px;letter-spacing:.02em}
 
 @keyframes pulse-red{0%{box-shadow:0 0 0 0 rgba(217,77,77,.26)}50%{box-shadow:0 0 0 7px rgba(217,77,77,.10)}100%{box-shadow:0 0 0 0 rgba(217,77,77,.26)}}
@@ -530,7 +531,7 @@ We look forward to reviewing your space.
   panes.forEach((pane) => {
     const title = document.createElement('h3');
     title.textContent = pane.dataset.t;
-    pane.prepend(title);
+    pane.preprepend(title);
   });
 })();
 </script>
